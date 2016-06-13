@@ -6,7 +6,8 @@ angular.module('pw.canvas-painter')
       restrict: 'AE',
       scope: {
         options: '=',
-        version: '='
+        version: '=',
+        onChange: '&'
       },
       templateUrl: '../templates/canvas.html',
       link: function postLink(scope, elm) {
@@ -203,6 +204,8 @@ angular.module('pw.canvas-painter')
           ctx.drawImage(canvasTmp, 0, 0);
           ctxTmp.clearRect(0, 0, canvasTmp.width, canvasTmp.height);
           ppts = [];
+          if (scope.onChange)
+            scope.onChange(canvas.toDataURL());
         };
 
         var startTmpImage = function(e) {
